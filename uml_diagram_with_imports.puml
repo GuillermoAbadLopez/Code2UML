@@ -1,0 +1,12 @@
+@startuml
+skinparam monochrome true
+[Child] -down-|> [examples/repo_example1/base_classes.py]
+
+[Parent] -down-|> [examples/repo_example1/base_classes.py]
+
+[AdoptedChild] -down-|> [examples/repo_example1/secondary_classes.py]
+
+[Child] -down-|> [examples/repo_example1/secondary_classes.py]
+
+[Parent] -down-|> [examples/repo_example1/secondary_classes.py]
+@enduml

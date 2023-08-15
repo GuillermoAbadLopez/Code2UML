@@ -1,0 +1,4 @@
+@startuml
+skinparam monochrome true
+[__init__] -down-|> [examples/repo_example1/secondary_classes.py]
+@enduml
