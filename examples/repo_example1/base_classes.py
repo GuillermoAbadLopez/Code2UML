@@ -4,7 +4,7 @@ class Parent():
     """Parent class"""
     
     def __init__(self, name: str, surname: str, height: float, weight: float, iq_coef: float):
-        """Initialise the bus.
+        """Initialise the Parent.
 
         Args:
             name (str): Name of the parent
@@ -24,7 +24,7 @@ class Child():
     """Son class"""
 
     def __init__(self, name: str, parent1: Parent, parent2: Parent):
-        """Initialise the bus.
+        """Initialise the Child.
 
         Args:
             name (str): Name of the son

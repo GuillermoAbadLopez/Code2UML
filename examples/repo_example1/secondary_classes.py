@@ -4,7 +4,7 @@ class AdoptedChild(Child):
     """Son class"""
 
     def __init__(self, name: str, parent1: Parent, parent2: Parent):
-        """Initialise the bus.
+        """Initialise the AdoptedChild.
 
         Args:
             name (str): Name of the son

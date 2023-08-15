@@ -1,0 +1,9 @@
+@startuml
+skinparam monochrome true
+[Parent] : Any, str, str, float, float, float
+
+[Child] : Any, str, Parent, Parent
+
+[AdoptedChild: Child] : Any, str, Parent, Parent
+
+@enduml

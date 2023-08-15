@@ -1,0 +1,9 @@
+@startuml
+skinparam monochrome true
+[Parent] : self: Any, name: str, surname: str, height: float, weight: float, iq_coef: float
+
+[Child] : self: Any, name: str, parent1: Parent, parent2: Parent
+
+[AdoptedChild] : self: Any, name: str, parent1: Parent, parent2: Parent
+
+@enduml
