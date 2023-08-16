@@ -5,7 +5,7 @@ Side project - on going
 Ideas:
 - Be able to show differences of diagrams with the green an red colors on the changes when there are git diff or git logs, for comparing different branches etc
 - Giving the option of instead of generating the full repo classes only generate diagrams of the important classes (ones with more conections or more repo centered maybe [to define]) (You can expand then the lesser lines clicking at it maybe?)
-- A close neighboors tools: Like you specify the class and it draws X layers out, and you can then ask for another one and another one, etc... So its not super saturated to start with
+- A close neighboors tools from a concrete class: Like you specify the class and it draws X layers out, and you can then ask for another one and another one, etc... So its not super saturated to start with
 - Levels of complexity on the diagrams that with a click you could chose if literly only showing if they have a relation at all, next level in which direction it goes, next level, maybe show if they have multiple relations at the same time or whateve
 
 
