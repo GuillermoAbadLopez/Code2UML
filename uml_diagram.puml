@@ -1,9 +1,11 @@
 @startuml
 skinparam monochrome true
-[Parent] : Any, str, str, float, float, float
+[Child1] 
 
-[Child] : Any, str, Parent, Parent
+[Child2] 
 
-[AdoptedChild: Child] : Any, str, Parent, Parent
+[Parent] 
+
+[Child: Child1, Child2] <- Parent
 
 @enduml

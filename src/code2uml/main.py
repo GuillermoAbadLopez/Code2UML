@@ -3,7 +3,7 @@ import subprocess
 import ast
 
 # Replace with the path to your local directory containing code files
-directory_path = 'examples/repo_example1'
+directory_path = 'examples/repo_example2'
 
 # Create a dictionary to store class and argument information
 class_info_dict = {}
@@ -12,7 +12,6 @@ class_info_dict = {}
 def extract_class_and_arguments(node):
     for item in node.body:
         if isinstance(item, ast.ClassDef):
-            class_name = item.name
             base_classes = []
             arguments = {}
 
@@ -21,18 +20,18 @@ def extract_class_and_arguments(node):
                     base_classes.append(base.id)
                 elif isinstance(base, ast.Attribute):
                     base_classes.append(base.attr)
-            
+
             for stmt in item.body:
                 if isinstance(stmt, ast.FunctionDef) and stmt.name == '__init__':
                     for arg in stmt.args.args:
-                        arg_name = arg.arg
                         if arg.annotation:
-                            arg_type = arg.annotation.id if isinstance(arg.annotation, ast.Name) else 'Any'
-                            arguments[arg_name] = arg_type
-                        else:
-                            arguments[arg_name] = 'Any'  # Default type if no annotation
+                            arg_type = arg.annotation.id if isinstance(arg.annotation, ast.Name) else 'Any' 
+                            if arg_type not in ['Any', 'str', 'int', 'float'] and arg_type not in arguments.values():
+                                arguments[arg.arg] = arg_type # arg.arg is the arg_name           
+                    if not arguments:
+                        arguments[''] = ''
 
-            class_info_dict[class_name] = base_classes, arguments
+            class_info_dict[item.name] = base_classes, arguments # item.name is the class_name
 
 # Iterate through each file in the directory
 for root, _, files in os.walk(directory_path):
@@ -52,25 +51,20 @@ for root, _, files in os.walk(directory_path):
                 extract_class_and_arguments(parsed)
             except SyntaxError:
                 print(f"Error parsing {file_path}")
-
+                
+class_diagrams=''
+# Iterate through class and argument information            
+for class_name, values in class_info_dict.items():
+    base_str = f': {", ".join(values[0])}' if values[0] else ''
+    arguments_str = ", ".join([f"{arg_type}" for _, arg_type in values[1].items()]) if values[1] else None
+    
+    final_arguments_str = f'<- {arguments_str}' if arguments_str else ''
+    class_diagrams += f'[{class_name}{base_str}] {final_arguments_str}\n\n'
+    
 # Generate the PlantUML diagram content
 uml_content = "@startuml\n"
 uml_content += "skinparam monochrome true\n"
-
-# Iterate through class and argument information
-for class_name, values in class_info_dict.items():
-    
-    if values[0]:
-        base_str = f': {" ".join(values[0])}'
-    else:
-        base_str = ''
-        
-    if values[1]:
-        arguments_str = ', '.join([f"{arg_type}" for _, arg_type in values[1].items()])
-    
-    class_diagram_entry = f'[{class_name}{base_str}] : {arguments_str}\n\n'
-    uml_content += class_diagram_entry
-
+uml_content += class_diagrams
 uml_content += "@enduml\n"
 
 # Write the PlantUML content to a file
